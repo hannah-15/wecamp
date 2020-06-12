@@ -29,17 +29,18 @@ app.use(flash());
 //seedDB();
 
 //db
-// assign mongoose promise library and connect to database
-mongoose.Promise = global.Promise;
+mongoose.connect(
+  process.env.MONGO_URI,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+)
+  .then(() => console.log("DB Connected"));
 
-const databaseUri = process.env.MONGODB_URI || 'mongodb://localhost/yelp_camp';
-
-mongoose.connect(databaseUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log(`Database connected`))
-  .catch(err => console.log(`Database connection error: ${err.message}`));
+mongoose.connection.on("error", err => {
+  console.log(`DB connection error: ${err.message}`);
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
