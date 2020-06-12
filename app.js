@@ -25,9 +25,18 @@ app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
 //seedDB();
-mongoose.connect("mongodb://localhost/yelp_camp", {
-  useNewUrlParser: true, useUnifiedTopology: true
+
+//db
+mongoose.connect(
+  process.env.MONGO_URI,
+  { useNewUrlParser: true }
+)
+  .then(() => console.log("DB Connected"));
+
+mongoose.connection.on("error", err => {
+  console.log(`DB connection error: ${err.message}`);
 });
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
