@@ -1,0 +1,42 @@
+<%- include('partials/header.ejs'); %>
+
+<div class="container">
+  <header class="jumbotron">
+    <div class="container">
+      <h1>Welcome to WeCamp!</h1>
+      <p>View all hand-picked camps!</p>
+      <p>
+        <a class="btn btn-primary btn-large" href="/camps/new">Add a new camp</a>
+      </p>
+      <p>
+        <form action="/camps" method="GET" class="form-inline">
+          <div class="form-group">
+            <input type="text" name="search" placeholder="Camp search..." class="form-control">
+            <input type="submit" value="Search" class="btn btn-default">
+          </div>
+        </form>
+      </p>
+    </div>
+  </header>
+
+  <div class="row text-center" style="display: flex; flex-wrap: wrap;">
+    <% camps.forEach(function(camp){ %>
+    <div class="col-md-3 col-sm-6">
+      <div class="thumbnail">
+        <img src="<%= camp.image %> " />
+        <div class="caption">
+          <h4><%= camp.name %></h4>
+          <div>
+            <span class="badge label-primary"><i class="fas fa-thumbs-up"></i> <%= camp.likes.length %></span>
+          </div>
+        </div>
+        <p>
+          <a href="/camps/<%= camp._id %>" class="btn btn-primary">More Info</a>
+        </p>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+</div>
+
+<%- include('partials/footer.ejs'); %>
