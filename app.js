@@ -69,7 +69,7 @@ app.use("/camps", campRoutes);
 app.use("/camps/:id/comments", commentRoutes);
 app.use("/camps/:id/reviews", reviewRoutes);
 
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, process.env.IP, function () {
   console.log("The Yelp Server is started!");
 });
